@@ -2,6 +2,33 @@
 
 This Schedular segments your tasks against their allocated time and alerts you on time lapse.
 
+## Installation & Setup
+
+This project uses Python's built-in `time` module, so **no external dependencies are required**.
+
+### Prerequisites
+* Python 3.6 or higher
+
+### Quick Start
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Schedular
+   cd Schedular
+   ```
+
+2. **(Optional) Create and activate a virtual environment:**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows, use: venv\Scripts\activate
+   ```
+
+3. **Run the script:**
+   ```bash
+   python main.py
+   ```
+
+
 ## Usage 
 * Takes your tasks against their allocated hours
 * Schedules them out on a scale of importance and difficulty 
