@@ -1,23 +1,30 @@
 name: Check Task Time Units
-
 on: push
-    
+
 jobs:
   verify-HOUR:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Remind collaborator & check for "HOUR"
+      - name: Check that every time unit is exactly "Hour"
         run: |
-          echo "::warning::REMINDER: Please verify that all scheduled task durations are written in HOUR!"
-          
-          # Optional: Fails the check if the word "HOUR" is missing from your script
-          if ! grep -qi "HOUR" *.md; then
-            echo "::error::Alert! No reference to 'HOUR' found in your Python files. Please confirm your task time is in HOUR."
+          echo "::warning::REMINDER: All task durations must use the exact unit 'Hour' (capital H, singular)."
+
+          # Fail if ANY occurrence of hour/hours/Hours/HOUR... is not exactly "Hour"
+          # grep -o prints one "file:line:match" per occurrence, so we check each match itself
+          bad=$(grep -rnoiE '\bhours?\b' -- *.md | grep -v ':Hour$' || true)
+          if [ -n "$bad" ]; then
+            echo "::error::Found a time unit that is not exactly 'Hour' (e.g. 'hour' or 'hours'):"
+            echo "$bad"
             exit 1
           fi
-          
-          echo "✅ 'HOUR' unit found in project files."
+
+          # Fail if "Hour" is missing entirely
+          if ! grep -rqw 'Hour' -- *.md; then
+            echo "::error::No 'Hour' unit found in any Markdown file. Please confirm your task time is in Hour."
+            exit 1
+          fi
+
+          echo "✅ All time units use 'Hour'."
