@@ -30,7 +30,7 @@ This project uses Python's built-in `time` module, so **no external dependencies
 
 
 ## Usage 
-* Takes your tasks against their allocated hours
+* Takes your tasks against their allocated Hour
 * Schedules them out on a scale of importance and difficulty 
 * It tracks your time and how long to take on tasks
 * Alerts you on time lapse and reminds you on the next task to take. 
