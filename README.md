@@ -1,5 +1,7 @@
 # Schedular
 
+[![Check Task Time Units](https://github.com/JVCK-BLVCK/capstone-schedular/actions/workflows/check-time-unit.yml/badge.svg?event=push)](https://github.com/JVCK-BLVCK/capstone-schedular/actions/workflows/check-time-unit.yml)
+
 This Schedular segments your tasks against their allocated time and alerts you on time lapse.
 
 ## Installation & Setup
