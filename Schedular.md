@@ -7,3 +7,5 @@
 5. The fifth task of the day created through Issue
 6. A Re-do of the fifth task issue and commit message
 to close issue
+7. Testing the new workflow [10-11] Hour; 30m Break
+8. Still the testing of the Hour [12-13] Hour
