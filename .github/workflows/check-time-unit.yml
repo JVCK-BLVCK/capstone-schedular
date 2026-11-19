@@ -8,23 +8,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Check that every time unit is exactly "Hour"
+      - name: Reject every variant except "Hour"
         run: |
           echo "::warning::REMINDER: All task durations must use the exact unit 'Hour' (capital H, singular)."
+          failed=0
+          for variant in hour hours Hours HOUR HOURS; do
+            if grep -rnw -- "$variant" *.md; then
+              echo "::error::Rejected time unit '$variant' found above. Use 'Hour' only."
+              failed=1
+            fi
+          done
+          exit "$failed"
 
-          # Fail if ANY occurrence of hour/hours/Hours/HOUR... is not exactly "Hour"
-          # grep -o prints one "file:line:match" per occurrence, so we check each match itself
-          bad=$(grep -rnoiE '\bhours?\b' -- *.md | grep -v ':Hour$' || true)
-          if [ -n "$bad" ]; then
-            echo "::error::Found a time unit that is not exactly 'Hour' (e.g. 'hour' or 'hours'):"
-            echo "$bad"
-            exit 1
-          fi
-
-          # Fail if "Hour" is missing entirely
+      - name: Require "Hour" to be present
+        run: |
           if ! grep -rqw 'Hour' -- *.md; then
-            echo "::error::No 'Hour' unit found in any Markdown file. Please confirm your task time is in Hour."
+            echo "::error::No 'Hour' unit found in any Markdown file."
             exit 1
           fi
-
-          echo "✅ All time units use 'Hour'."
+          echo "✅ 'Hour' is used and no rejected variants were found."
